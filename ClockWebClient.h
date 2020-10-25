@@ -73,6 +73,14 @@ void ClockWebClient::sendResponse() {
   int numOfMessages = commandsBuffer->getNumberOfMessages();
   int offset = 0;
 
+  //Output Response Header
+  m_client.print("HTTP/1.1 202 Accepted\r\n");
+  m_client.print("Content-Type: text/html\r\n");
+  m_client.print("Connection: close\r\n");
+  m_client.print("\r\n");
+
+  //Output Response Body
+
   m_client.println("<!DOCTYPE html><html>\n<head><title>Command Reciept Confirmation</title></head>\n<body>");
 
   for (int i = 0; i < numOfMessages; i++) {
@@ -95,8 +103,8 @@ void ClockWebClient::sendResponse() {
   }
 
   m_client.println("</body>\n</html>");
+  m_client.print("\r\n");
 
-  m_client.println();
   m_client.stop();
 }
 
